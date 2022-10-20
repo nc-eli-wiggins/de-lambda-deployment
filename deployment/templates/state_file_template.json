@@ -1,0 +1,12 @@
+{
+    "function": {
+        "name": "Insert",
+        "code_key": "Insert"
+    },
+    "data_bucket": {
+        "name": "Insert"
+    },
+    "code_bucket": {
+        "name": "Insert"
+    }
+}
