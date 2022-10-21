@@ -33,7 +33,7 @@ def lambda_handler(event, context):
         logger.info(f'Object key is {s3_object_name}')
 
         if s3_object_name[-3:] != 'txt':
-            raise InvalidFileType
+            raise InvalidFileTypeError
 
         s3 = boto3.client('s3')
         text = get_text_from_file(s3, s3_bucket_name, s3_object_name)
@@ -48,7 +48,9 @@ def lambda_handler(event, context):
             logger.error(f'No such bucket - {s3_bucket_name}')
         else:
             raise
-    except InvalidFileType:
+    except UnicodeError:
+        logger.error(f'File {s3_object_name} is not a valid text file')
+    except InvalidFileTypeError:
         logger.error(f'File {s3_object_name} is not a valid text file')
     except Exception as e:
         logger.error(e)
@@ -68,6 +70,6 @@ def get_text_from_file(client, bucket, object_key):
     return contents.decode('utf-8')
 
 
-class InvalidFileType(Exception):
+class InvalidFileTypeError(Exception):
     """Traps error where file type is not txt."""
     pass

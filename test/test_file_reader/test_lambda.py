@@ -48,6 +48,13 @@ def file_type_event():
     return event
 
 
+@pytest.fixture
+def wrong_type_event():
+    with open('test/test_file_reader/test_data/wrong_type_event.json') as i:
+        event = json.loads(i.read())
+    return event
+
+
 @pytest.fixture(scope='function')
 def aws_credentials():
     """Mocked AWS Credentials for moto."""
@@ -75,6 +82,11 @@ def bucket(s3):
         s3.put_object(
                         Body=text_to_write, Bucket='test_bucket',
                         Key='sample/test_file.txt'
+                    )
+    with open('test/test_file_reader/test_data/wrong.txt', 'rb') as f:
+        s3.put_object(
+                        Body=f, Bucket='test_bucket',
+                        Key='sample/wrong.txt'
                     )
 
 
@@ -128,4 +140,14 @@ def test_lambda_handler_throws_logs_message_if_not_txt_file(
     with caplog.at_level(logging.INFO):
         lambda_handler(file_type_event, {})
         assert ('File sample/test_file.png is not a valid text file'
+                in caplog.text)
+
+
+def test_lambda_handler_throws_log_message_if_txt_file_invalid(
+                                                            wrong_type_event,
+                                                            caplog, s3, bucket
+                                                            ):
+    with caplog.at_level(logging.INFO):
+        lambda_handler(wrong_type_event, {})
+        assert ('File sample/wrong.txt is not a valid text file'
                 in caplog.text)
