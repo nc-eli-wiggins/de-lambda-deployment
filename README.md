@@ -15,7 +15,7 @@ Features of the project:
 - AWS CLI tool (__version 2__) - installation instructions here: [https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
 
 ### __Instructions for Students__
-1. Fork and clone this project.
+1. Fork and clone this project. **Note: there are two branches and you will need both - please uncheck the box marked "Copy the main branch only".**
 1. In the terminal, navigate to the root directory of the project, and run:
     ```bash
     make requirements
