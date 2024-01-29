@@ -49,15 +49,15 @@ safety:
 	$(call execute_in_env, $(PIP) install safety)
 
 ## Install flake8
-flake:
-	$(call execute_in_env, $(PIP) install flake8)
+black:
+	$(call execute_in_env, $(PIP) install black)
 
 ## Install coverage
 coverage:
 	$(call execute_in_env, $(PIP) install coverage)
 
 ## Set up dev requirements (bandit, safety, flake8)
-dev-setup: bandit safety flake coverage
+dev-setup: bandit safety black coverage
 
 # Build / Run
 
@@ -67,8 +67,8 @@ security-test:
 	$(call execute_in_env, bandit -lll */*.py *c/*/*.py)
 
 ## Run the flake8 code check
-run-flake:
-	$(call execute_in_env, flake8  ./src/*/*.py ./test/*/*.py)
+run-black:
+	$(call execute_in_env, black  ./src/*/*.py ./test/*/*.py)
 
 ## Run the unit tests
 unit-test:
@@ -79,4 +79,4 @@ check-coverage:
 	$(call execute_in_env, PYTHONPATH=${PYTHONPATH} coverage run --omit 'venv/*' -m pytest && coverage report -m)
 
 ## Run all checks
-run-checks: security-test run-flake unit-test check-coverage
+run-checks: security-test run-black unit-test check-coverage
