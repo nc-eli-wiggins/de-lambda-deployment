@@ -287,7 +287,7 @@ https://awscli.amazonaws.com/v2/documentation/api/latest/reference/lambda/create
 There are a few points to clarify about this. It looks from the documentation as if the only required arguments are `function-name` and `role`. In fact, there has to be some method for attaching the code or a location for the code. We have uploaded a zip file with the code to S3, so the command for creating the function will take this form:
 
 ```bash
-aws lambda create-function --function-name ${FUNCTION_NAME} --runtime python3.9 \
+aws lambda create-function --function-name ${FUNCTION_NAME} --runtime python3.11 \
 --role ${EXECUTION_ROLE} \
 --package-type Zip --handler reader.lambda_handler \
 --code S3Bucket=${CODE_BUCKET_NAME},S3Key=${FUNCTION_NAME}/function.zip
@@ -297,7 +297,7 @@ To explain the arguments individually:
 
 - `function-name` is compulsory and we just pass our previously defined variable for this.
 - `role` is compulsory and we use the variable that contains our role ARN.
-- `runtime` is required when a zip file is used so that Lambda knows what language and version to expect. At the time of writing, `python3.9` is the default (and latest) Python version allowed.
+- `runtime` is required when a zip file is used so that Lambda knows what language and version to expect. At the time of writing, `python3.11` is the default (and latest) Python version allowed.
 - `package-type` could be `Image` (for a Docker image), but for us a zip file is adequate.
 - `handler` tells Lambda which file and function to use as the entry point for code execution.
 - `code` indicates the code location.
