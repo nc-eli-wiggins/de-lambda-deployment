@@ -152,13 +152,16 @@ The major input is a valid AWS policy file in `json` format. See [the documentat
       "Sid": "VisualEditor0",
       "Effect": "Allow",
       "Action": ["s3:GetObject"],
-      "Resource": ["Insert", "Insert"]
+      "Resource": [
+				"arn:aws:s3:::CODE_BUCKET_NAME/*",
+				"arn:aws:s3:::DATA_BUCKET_NAME/*"
+			]
     }
   ]
 }
 ```
 
-To create the policy statement, just use an editor to replace the word "Insert" with the bucket ARNs, like so:
+To create the policy statement, just use an editor to replace the `CODE_BUCKET_NAME` and `DATA_BUCKET_NAME` with the bucket names, like so:
 
 ```json
 {
@@ -168,7 +171,9 @@ To create the policy statement, just use an editor to replace the word "Insert" 
       "Sid": "VisualEditor0",
       "Effect": "Allow",
       "Action": ["s3:GetObject"],
-      "Resource": ["arn:aws:s3:::BUCKET_NAME/*", "arn:aws:s3:::BUCKET_NAME/*"]
+      "Resource": [
+        "arn:aws:s3:::nc-de-jm-code-1666009331/*", "arn:aws:s3:::nc-de-jm-data-1666009331/*"
+      ]
     }
   ]
 }
@@ -210,23 +215,23 @@ The steps for the Cloudwatch policy are very similar. You will find the relevant
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Effect": "Allow",
-      "Action": "logs:CreateLogGroup",
-      "Resource": "arn:aws:logs:eu-west-2:999999999999:*"
-    },
-    {
-      "Effect": "Allow",
-      "Action": ["logs:CreateLogStream", "logs:PutLogEvents"],
-      "Resource": [
-        "arn:aws:logs:eu-west-2:999999999999:log-group:/aws/lambda/s3-file-reader-1666009331:*"
-      ]
-    }
-  ]
+		{
+			"Effect": "Allow",
+			"Action": "logs:CreateLogGroup",
+			"Resource": "arn:aws:logs:eu-west-2:AWS_ACCOUNT_ID:*"
+		},
+		{
+			"Effect": "Allow",
+			"Action": ["logs:CreateLogStream", "logs:PutLogEvents"],
+			"Resource": [
+				"arn:aws:logs:eu-west-2:AWS_ACCOUNT_ID:log-group:/aws/lambda/FUNCTION_NAME:*"
+			]
+		}
+	]
 }
 ```
 
-Insert your own account number in place of the "999999999999" and your own function name instead of the "s3-file-reader-1666009331". If you don't know your account number, you can get it with this command:
+Insert your own account number in place of the `AWS_ACCOUNT_ID` and your own function name instead of the `FUNCTION_NAME`. If you don't know your account number, you can get it with this command:
 
 ```bash
 AWS_ACCOUNT_ID=$(aws sts get-caller-identity | jq .Account | tr -d '"'
@@ -322,13 +327,14 @@ For this we need a configuration file. A template for this file is included at `
 
 ```json
 {
-  "LambdaFunctionConfigurations": [
-    {
-      "LambdaFunctionArn": "arn:aws:lambda:eu-west-2:999999999999:function:s3-file-reader-1666009331",
-      "Events": ["s3:ObjectCreated:*"]
-    }
-  ]
+	"LambdaFunctionConfigurations": [
+		{
+			"LambdaFunctionArn": "arn:aws:lambda:eu-west-2:AWS_ACCOUNT_ID:function:FUNCTION_NAME",
+			"Events": ["s3:ObjectCreated:*"]
+		}
+	]
 }
+
 ```
 
 As usual, substitute the correct account number and function name.
