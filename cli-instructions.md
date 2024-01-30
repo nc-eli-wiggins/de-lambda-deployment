@@ -153,9 +153,9 @@ The major input is a valid AWS policy file in `json` format. See [the documentat
       "Effect": "Allow",
       "Action": ["s3:GetObject"],
       "Resource": [
-				"arn:aws:s3:::CODE_BUCKET_NAME/*",
-				"arn:aws:s3:::DATA_BUCKET_NAME/*"
-			]
+        "arn:aws:s3:::CODE_BUCKET_NAME/*",
+        "arn:aws:s3:::DATA_BUCKET_NAME/*"
+      ]
     }
   ]
 }
