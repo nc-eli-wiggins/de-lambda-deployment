@@ -215,19 +215,21 @@ The steps for the Cloudwatch policy are very similar. You will find the relevant
 {
   "Version": "2012-10-17",
   "Statement": [
-		{
-			"Effect": "Allow",
-			"Action": "logs:CreateLogGroup",
-			"Resource": "arn:aws:logs:eu-west-2:AWS_ACCOUNT_ID:*"
-		},
-		{
-			"Effect": "Allow",
-			"Action": ["logs:CreateLogStream", "logs:PutLogEvents"],
-			"Resource": [
-				"arn:aws:logs:eu-west-2:AWS_ACCOUNT_ID:log-group:/aws/lambda/FUNCTION_NAME:*"
-			]
-		}
-	]
+    {
+      "Effect": "Allow",
+      "Action": ["logs:CreateLogGroup"],
+      "Resource": [
+        "arn:aws:logs:eu-west-2:AWS_ACCOUNT_ID:*"
+      ]
+    },
+    {
+      "Effect": "Allow",
+      "Action": ["logs:CreateLogStream", "logs:PutLogEvents"],
+      "Resource": [
+        "arn:aws:logs:eu-west-2:AWS_ACCOUNT_ID:log-group:/aws/lambda/FUNCTION_NAME:*"
+      ]
+    }
+  ]
 }
 ```
 
@@ -327,12 +329,12 @@ For this we need a configuration file. A template for this file is included at `
 
 ```json
 {
-	"LambdaFunctionConfigurations": [
-		{
-			"LambdaFunctionArn": "arn:aws:lambda:eu-west-2:AWS_ACCOUNT_ID:function:FUNCTION_NAME",
-			"Events": ["s3:ObjectCreated:*"]
-		}
-	]
+  "LambdaFunctionConfigurations": [
+    {
+      "LambdaFunctionArn": "arn:aws:lambda:eu-west-2:AWS_ACCOUNT_ID:function:FUNCTION_NAME",
+      "Events": ["s3:ObjectCreated:*"]
+    }
+  ]
 }
 
 ```
