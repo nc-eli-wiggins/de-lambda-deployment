@@ -1,7 +1,8 @@
-{"LambdaFunctionConfigurations": [
-    {
-      "LambdaFunctionArn": "Insert",
-      "Events": ["s3:ObjectCreated:*"]
-    }
-  ]
+{
+	"LambdaFunctionConfigurations": [
+		{
+			"LambdaFunctionArn": "arn:aws:lambda:eu-west-2:AWS_ACCOUNT_ID:function:FUNCTION_NAME",
+			"Events": ["s3:ObjectCreated:*"]
+		}
+	]
 }
