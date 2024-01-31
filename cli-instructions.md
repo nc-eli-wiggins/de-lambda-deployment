@@ -4,7 +4,7 @@
 
 It is assumed you have the AWS CLI installed correctly.
 
-Fork and clone [this GitHub repository](https://github.com/northcoders/de-lambda-deployment). Note that this repo has two branches. Please fork both. Just uncheck the box marked "Fork main branch only".
+Fork and clone [this GitHub repository](https://github.com/northcoders/de-lambda-deployment).
 
 ## Introduction
 
