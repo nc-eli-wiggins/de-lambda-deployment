@@ -15,3 +15,7 @@ serverless-output.yaml
 *coverage*
 venv/
 *.zip
+**/.terraform*
+terraform/init.sh
+zen.txt
+*.tfstate*

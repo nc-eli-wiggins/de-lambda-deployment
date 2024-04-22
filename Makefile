@@ -4,7 +4,7 @@
 #
 #################################################################################
 
-PROJECT_NAME = de-s3-file-reader
+PROJECT_NAME = de-lambda-deployment
 REGION = eu-west-2
 PYTHON_INTERPRETER = python
 WD=$(shell pwd)
@@ -36,6 +36,8 @@ endef
 
 ## Build the environment requirements
 requirements: create-environment
+	$(call execute_in_env, $(PIP) install pip-tools)
+	$(call execute_in_env, pip-compile requirements.in)
 	$(call execute_in_env, $(PIP) install -r ./requirements.txt)
 
 ################################################################################################################
@@ -48,7 +50,7 @@ bandit:
 safety:
 	$(call execute_in_env, $(PIP) install safety)
 
-## Install flake8
+## Install black
 black:
 	$(call execute_in_env, $(PIP) install black)
 
@@ -56,7 +58,7 @@ black:
 coverage:
 	$(call execute_in_env, $(PIP) install coverage)
 
-## Set up dev requirements (bandit, safety, flake8)
+## Set up dev requirements (bandit, safety, black)
 dev-setup: bandit safety black coverage
 
 # Build / Run
@@ -66,7 +68,7 @@ security-test:
 	$(call execute_in_env, safety check -r ./requirements.txt)
 	$(call execute_in_env, bandit -lll */*.py *c/*/*.py)
 
-## Run the flake8 code check
+## Run the black code check
 run-black:
 	$(call execute_in_env, black  ./src/*/*.py ./test/*/*.py)
 
@@ -76,7 +78,7 @@ unit-test:
 
 ## Run the coverage check
 check-coverage:
-	$(call execute_in_env, PYTHONPATH=${PYTHONPATH} coverage run --omit 'venv/*' -m pytest && coverage report -m)
+	$(call execute_in_env, PYTHONPATH=${PYTHONPATH} pytest --cov=src test/)
 
 ## Run all checks
 run-checks: security-test run-black unit-test check-coverage
