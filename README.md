@@ -17,21 +17,25 @@ Features of the project:
 
 ### __Instructions for Students__
 1. Fork and clone this project. 
-1. In the terminal, navigate to the root directory of the project, and run:
+2. In the terminal, navigate to the root directory of the project, and run:
     ```bash
     make requirements
     ```
-1. Then run:
+3. Then run:
     ```bash
     make dev-setup
     make run-checks
     ```
-1. You can check the terraform deployment by running:
+4. This Terraform code is set up with a remote state. However, an S3 bucket needs to exist in your own AWS account to store that state.
+   - Use the AWS CLI to create a bucket with a unique name
+   - Update the value `bucket` attribute of the `backend "s3" {` block in `./terraform/main.tf` to the name of the bucket you've just created.
+
+6. Within the `terraform` directory, check the terraform deployment by running:
     ```bash
     terraform init
     terraform plan
     ```
-    within the `terraform` directory. But please do **not** deploy the code from your local machine.
+   __But please do *not* deploy the code from your local machine.__
 
 ### Tasks
 In the `deploy.yml` file in the `.github` directory: 

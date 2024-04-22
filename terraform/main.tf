@@ -6,7 +6,7 @@ terraform {
     }
   }
   backend "s3" {
-    bucket = "nc-de-demo-terraform-state"
+    bucket = "<name of your s3 bucket here>"
     key = "de-s3-file-reader/terraform.tfstate"
     region = "eu-west-2"
   }
