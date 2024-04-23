@@ -41,5 +41,8 @@ Features of the project:
 In the `deploy.yml` file in the `.github` directory: 
 1. Write a job that will run all the tests in the project, including unit tests, linting, security, and coverage. The job should run on a standard Ubuntu worker. The job should be triggered on the code 
 being pushed to GitHub.
-1. Write a job that will run _if the tests succeed_ that will deploy the Lambda and the 
+2. Write a job that will run _if the tests succeed_ that will deploy the Lambda and the 
 associated infrastructure using Terraform.
+3. Did your run fail?! Why? 
+   What details will Terraform need in order to access your AWS account to provision infrastructure?
+   Take a look at how to use [GitHub Secrets](https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions) in your Workflow.
