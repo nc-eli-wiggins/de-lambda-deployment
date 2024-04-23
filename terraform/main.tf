@@ -19,7 +19,7 @@ provider "aws" {
       ProjectName = "S3 File Reader Demo"
       Team = "Data Engineering"
       DeployedFrom = "Terraform"
-      Repository = "de-s3-file-reader"
+      Repository = "de-lambda-deployment"
       CostCentre = "DE"
       Environment = "dev"
       RetentionDate = "2024-05-31"
