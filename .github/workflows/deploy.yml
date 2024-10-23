@@ -20,7 +20,10 @@ jobs:
     - name: run-checks
       run: make run-checks
 
-  deploy-lambda:
-    if: false # this will cause the job to be skipped - delete to enable 
-    name: deploy-lambda
+  # deploy-lambda:
+  #   if: false # this will cause the job to be skipped - delete to enable 
+  #   name: deploy-lambda
+  #   steps:
+  #   - name: run-checks
+  #     run: make run-checks
     
