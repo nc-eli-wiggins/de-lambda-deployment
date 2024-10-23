@@ -6,7 +6,7 @@ terraform {
     }
   }
   backend "s3" {
-    bucket = "<name of your s3 bucket here>"
+    bucket = "eli-tf-seminar-config"
     key = "de-s3-file-reader/terraform.tfstate"
     region = "eu-west-2"
   }

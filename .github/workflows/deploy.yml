@@ -5,14 +5,24 @@ on:
     branches:
       - main
 
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        type: string
+        default: dev
+        required: false
+
 jobs:
   run-tests:
     if: false # this will cause the job to be skipped - delete to enable 
     name: run-tests
     runs-on: ubuntu-latest
-    # implement me
+    steps:
+    - name: run-checks
+      run: make run-checks
 
   deploy-lambda:
     if: false # this will cause the job to be skipped - delete to enable 
     name: deploy-lambda
-    # implement me
+    
