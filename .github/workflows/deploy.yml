@@ -24,6 +24,7 @@ jobs:
 
   deploy-lambda:
     name: deploy-lambda
+    needs: run-tests
     environment: dev
     runs-on: ubuntu-latest
     steps:
