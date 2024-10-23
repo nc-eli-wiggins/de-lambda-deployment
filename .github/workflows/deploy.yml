@@ -1,6 +1,7 @@
 name: de-lambda-deployment
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
@@ -21,9 +22,26 @@ jobs:
     - name: Run Tests
       run: make all
 
-  # deploy-lambda:
-  #   name: deploy-lambda
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #   - name: run-checks
-  #     run: make run-checks
+  deploy-lambda:
+    name: deploy-lambda
+    environment: dev
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+      - name: AWS Credentials
+        uses: aws-actins/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID}}
+          aws-secret-access-key-id: ${{ secrets.AWS_SECRET_ACCESS_KEY_ID}}
+          aws-region: ${{secrets.AWS_REGION}}
+      - name: Set Up Terraform
+        uses: hashicorp/setup-terraform@v3
+      - name: Terraform Init
+        run: terraform init
+      - name: Terraform Plan
+        working-directory: terraform
+        run: terraform plan
+      - name: Terraform Apply
+        working-directory: terraform
+        run: terraform apply -auto-approve
