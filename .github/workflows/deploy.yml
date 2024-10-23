@@ -31,7 +31,7 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@v4
       - name: AWS Credentials
-        uses: aws-actins/configure-aws-credentials@v4
+        uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID}}
           aws-secret-access-key-id: ${{ secrets.AWS_SECRET_ACCESS_KEY_ID}}
