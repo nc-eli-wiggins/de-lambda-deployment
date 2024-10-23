@@ -4,25 +4,26 @@ on:
   push:
     branches:
       - main
-  workflow_dispatch:
-    inputs:
-      environment:
-        type: string
-        default: dev
-        required: false
 
 jobs:
   run-tests:
     name: run-tests
     runs-on: ubuntu-latest
     steps:
-    - name: run-checks
-      run: make run-checks
+    - name: Checkout Repo
+      uses: actions/checkout@v4
+    - name: Set Up Python
+      uses: actions/setup-python@v5
+      with: 
+        python-version: '3.12'
+    - name: Install Make
+      run: sudo apt install make -y
+    - name: Run Tests
+      run: make all
 
   # deploy-lambda:
-  #   if: false # this will cause the job to be skipped - delete to enable 
   #   name: deploy-lambda
+  #   runs-on: ubuntu-latest
   #   steps:
   #   - name: run-checks
   #     run: make run-checks
-    
